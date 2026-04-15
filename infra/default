@@ -156,15 +156,15 @@ server {
     server_name taski.practicum.su;
 
     location / {
-        proxy_pass http://127.0.0.1:8081;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
+    return 200 'Taski is running!';
+    add_header Content-Type text/plain;
+}
 
-     location /api/ {
-         return 200 '{"tasks": []}';
-         add_header Content-Type application/json;
-} 
+location /api/ {
+    proxy_pass http://127.0.0.1:8081;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+}
     listen 443 ssl; # managed by Certbot
     ssl_certificate /etc/letsencrypt/live/taski.practicum.su/fullchain.pem; # managed by Certbot
     ssl_certificate_key /etc/letsencrypt/live/taski.practicum.su/privkey.pem; # managed by Certbot
