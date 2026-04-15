@@ -1,5 +1,7 @@
-IP: 178.154.232.83;
-name_taski: https://taski.practicum.su;
-name_kittygram: https://practicum.su;
-login: admin2;
-password: Admin123!;
+{
+    "IP": "178.154.232.83",
+    "name_taski": "https://taski.practicum.su",
+    "name_kittygram": "https://practicum.su",
+    "login": "admin2",
+    "password": "Admin123!"
+}
