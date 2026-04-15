@@ -7,7 +7,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'fallback-secret-key-for-dev')
 
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '178.154.232.83', 'practicum.su', 'www.practicum.su', 'taski.practicum.su']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
