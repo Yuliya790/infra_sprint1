@@ -153,53 +153,33 @@ server {
 }
 # ===== TASKI =====
 server {
-    server_name taski.practicum.su;
-
-    location / {
-    return 200 'Taski is running!';
-    add_header Content-Type text/plain;
-}
-
-location /api/ {
-    proxy_pass http://127.0.0.1:8081;
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-}
-    listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/taski.practicum.su/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/taski.practicum.su/privkey.pem; # managed by Certbot
-    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-
-}
-
-server {
-    if ($host = taski.practicum.su) {
-        return 301 https://$host$request_uri;
-    } # managed by Certbot
-
-
-    listen 80;
-    server_name taski.practicum.su;
-    return 404; # managed by Certbot
-
-
-}
-
-server {
     listen 443 ssl;
     server_name taski.practicum.su;
+
     ssl_certificate /etc/letsencrypt/live/taski.practicum.su/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/taski.practicum.su/privkey.pem;
 
     location / {
+        root /var/www/taski;
+        index index.html;
+        try_files $uri /index.html;
+    }
+
+    location /api/ {
         proxy_pass http://127.0.0.1:8081;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
     }
 
-    location /api/ {
-        return 200 '{"tasks": []}';
-        add_header Content-Type application/json;
+    location /admin/ {
+        proxy_pass http://127.0.0.1:8081;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
     }
+}
+
+server {
+    listen 80;
+    server_name taski.practicum.su;
+    return 301 https://$server_name$request_uri;
 }
