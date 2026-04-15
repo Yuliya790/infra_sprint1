@@ -1,0 +1,5 @@
+IP: 178.154.232.83;
+name_taski: http://178.154.232.83;
+name_kittygram: https://practicum.su;
+login: admin;
+password: admin123;
