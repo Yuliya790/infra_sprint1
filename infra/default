@@ -108,11 +108,13 @@ server {
     location /media/ {
         alias /var/www/kittygram/media/;
     }
-
-    location /api/ {
-    return 200 '{"status": "ok"}';
-    add_header Content-Type application/json;
-}
+   
+ location /api/ {
+    proxy_pass http://127.0.0.1:8080;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    client_max_body_size 20M;
+} 
 
     location /admin/ {
         client_max_body_size 20M;
