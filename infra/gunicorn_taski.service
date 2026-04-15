@@ -1,0 +1,13 @@
+[Unit]
+Description=gunicorn daemon for Taski
+After=network.target
+
+[Service]
+User=_ghbvff
+Group=www-data
+WorkingDirectory=/home/_ghbvff/taski/backend
+Environment="PATH=/home/_ghbvff/taski/backend/venv/bin"
+ExecStart=/home/_ghbvff/taski/backend/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8081 backend.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
